@@ -13,10 +13,8 @@ public class Configuration {
     private String outDir;
     @Value("${fssf.outAckDir}")
     private String outAckDir;
-    @Value("${tpl.senderId}")
-    private String senderId;
-    @Value("${tpl.receiverId}")
-    private String receiverId;
+    @Value("${tpl.senderApplication}")
+    private String senderApplication;
 
     public String getInDir() {
         return inDir;
@@ -50,20 +48,12 @@ public class Configuration {
         this.outAckDir = outAckDir;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public String getSenderApplication() {
+        return senderApplication;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
-    public String getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
+    public void setSenderApplication(String senderApplication) {
+        this.senderApplication = senderApplication;
     }
 
     @Override
@@ -73,8 +63,7 @@ public class Configuration {
                 ", inDirProcessed='" + inDirProcessed + '\'' +
                 ", outDir='" + outDir + '\'' +
                 ", outAckDir='" + outAckDir + '\'' +
-                ", senderId='" + senderId + '\'' +
-                ", receiverId='" + receiverId + '\'' +
+                ", senderApplication='" + senderApplication + '\'' +
                 '}';
     }
 }

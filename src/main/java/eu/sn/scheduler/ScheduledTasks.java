@@ -44,21 +44,24 @@ public class ScheduledTasks {
         if (files.length > 0) {
             for (File file: files) {
 
+                String originalSenderId = file.getName().split("_")[1];
+
                 Message m = xmlParser.parseXML(file);
 
                 Ack ack = createAck(m, ReasonCode.A01, null);
 
                 byte[] bytes = ecpContentBuilder.createECPContent(ack);
 
-                // Put ACK to OUT_ACK
+                String finalFileName =
+                        configuration.getSenderApplication() + "_"
+                        + originalSenderId + "_"
+                        + ack.getmRID() + "_" + UUID.randomUUID();
 
-                Files.write(Paths.get(configuration.getOutAckDir() + ack.getmRID()), bytes);
+                // Put ACK to OUT_ACK
+                Files.write(Paths.get(configuration.getOutAckDir() + finalFileName), bytes);
 
                 // Put ACK to OUT dir for ECP fssf channel
-                Files.write(Paths.get(configuration.getOutDir()
-                        + configuration.getSenderId() + "_"
-                        + configuration.getReceiverId() + "_"
-                        + ack.getmRID() + "_" + UUID.randomUUID()), bytes);
+                Files.write(Paths.get(configuration.getOutDir() + finalFileName), bytes);
 
                 log.debug("Copying file {}", file.getName());
                 String movedFile = configuration.getInDirProcessed() + file.getName() + "_PROCESSED_" + new Date();
