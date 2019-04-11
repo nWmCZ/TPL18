@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>eu.stanislavnovotny</groupId>
-	<artifactId>tpl17</artifactId>
+	<artifactId>tpl18</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>${packaging.type}</packaging>
 
-	<name>tpl17</name>
-	<description>TPL for Java 1.7</description>
+	<name>TPL18</name>
+	<description>TPL for Java 1.8</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -22,7 +22,7 @@
 		<packaging.type>jar</packaging.type>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
