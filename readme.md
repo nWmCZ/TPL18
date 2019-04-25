@@ -1,4 +1,4 @@
-## TPL in Java 7
+## TPL in Java 8
 
 # Build standalone JAR
 - mvn clean build

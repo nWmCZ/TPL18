@@ -16,7 +16,10 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static eu.sn.ack.AckBuilder.createAck;
@@ -57,11 +60,26 @@ public class ScheduledTasks {
                         + originalSenderId + "_"
                         + ack.getmRID() + "_" + UUID.randomUUID();
 
+                Set<PosixFilePermission> perms = new HashSet<>();
+                perms.add(PosixFilePermission.OWNER_READ);
+                perms.add(PosixFilePermission.OWNER_WRITE);
+                perms.add(PosixFilePermission.OWNER_EXECUTE);
+
+                perms.add(PosixFilePermission.OTHERS_READ);
+                perms.add(PosixFilePermission.OTHERS_WRITE);
+                perms.add(PosixFilePermission.OTHERS_EXECUTE);
+
+                perms.add(PosixFilePermission.GROUP_READ);
+                perms.add(PosixFilePermission.GROUP_WRITE);
+                perms.add(PosixFilePermission.GROUP_EXECUTE);
+
                 // Put ACK to OUT_ACK
                 Files.write(Paths.get(configuration.getOutAckDir() + finalFileName), bytes);
+                Files.setPosixFilePermissions(Paths.get(configuration.getOutAckDir() + finalFileName), perms);
 
                 // Put ACK to OUT dir for ECP fssf channel
                 Files.write(Paths.get(configuration.getOutDir() + finalFileName), bytes);
+                Files.setPosixFilePermissions(Paths.get(configuration.getOutDir() + finalFileName), perms);
 
                 log.debug("Copying file {}", file.getName());
                 String movedFile = configuration.getInDirProcessed() + file.getName() + "_PROCESSED_" + new Date();
